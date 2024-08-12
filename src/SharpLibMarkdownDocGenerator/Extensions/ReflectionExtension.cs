@@ -115,7 +115,7 @@ internal static class ReflectionExtension
     }
 }
 
-public enum TypeCategory
+internal enum TypeCategory
 {
     UnKnown,
     Enum,
