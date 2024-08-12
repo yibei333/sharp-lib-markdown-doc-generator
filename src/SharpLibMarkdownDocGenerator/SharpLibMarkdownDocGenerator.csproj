@@ -2,11 +2,44 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>12.0</LangVersion>
-		<Nullable>enable</Nullable>
+		<Authors>developer333</Authors>
+		<Description>.net类库markdown文档生成器</Description>
+		<Copyright>developer333</Copyright>
+		<PackageId>SharpLibMarkdownDocGenerator</PackageId>
+		<PackageProjectUrl>https://github.com/yibei333/sharp-lib-markdown-doc-generator</PackageProjectUrl>
+		<PackageIcon>c-sharp.png</PackageIcon>
+		<RepositoryUrl>https://github.com/yibei333/sharp-lib-markdown-doc-generator</RepositoryUrl>
+		<PackageTags>libarary markdown doc</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Version>0.0.2-alpha</Version>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../assets/c-sharp.png" Link="Assets\c-sharp.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="../../LICENSE" Link="Assets\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="../../README.md" Link="Assets\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="../../assets/version.txt" Link="Assets\version.txt">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
 
 	<ItemGroup>
 	  <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
