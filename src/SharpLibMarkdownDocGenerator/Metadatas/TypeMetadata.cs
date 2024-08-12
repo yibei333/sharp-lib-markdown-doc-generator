@@ -179,14 +179,14 @@ internal class TypeMetadata : BaseMetadata<NamespaceMetadata>
     }
 }
 
-public class GenericParameter(string name, string? doc)
+internal class GenericParameter(string name, string? doc)
 {
     public string Name { get; } = name;
     public string? Doc { get; } = doc;
     public List<GenericParameterConstraint> Constraints { get; } = [];
 }
 
-public class GenericParameterConstraint(string text, Type? type)
+internal class GenericParameterConstraint(string text, Type? type)
 {
     public string Text { get; } = text;
     public Type? Type { get; } = type;

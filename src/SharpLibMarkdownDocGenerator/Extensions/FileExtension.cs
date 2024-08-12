@@ -7,7 +7,7 @@ namespace SharpLibMarkdownDocGenerator.Extensions;
 /// <summary>
 /// 文件扩展
 /// </summary>
-public static class FileExtension
+internal static class FileExtension
 {
     static readonly double _kbUnit = 1024;
     static readonly double _mbUnit = 1024 * _kbUnit;

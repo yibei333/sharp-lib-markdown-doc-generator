@@ -1,6 +1,6 @@
 ﻿namespace SharpLibMarkdownDocGenerator.Helpers;
 
-public static class BelongDirectoryAttributeHelper
+internal static class BelongDirectoryAttributeHelper
 {
     public static string? GetBelongDirectory(this Type type)
     {

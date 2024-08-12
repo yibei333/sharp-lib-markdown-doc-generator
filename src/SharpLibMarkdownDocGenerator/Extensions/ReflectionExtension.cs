@@ -8,7 +8,7 @@ namespace SharpLibMarkdownDocGenerator.Extensions;
 /// <summary>
 /// 反射扩展
 /// </summary>
-public static class ReflectionExtension
+internal static class ReflectionExtension
 {
     /// <summary>
     /// 获取类型定义名称(支持泛型,不支持内部类型)
