@@ -11,9 +11,9 @@ internal class AssemblyWriter(AssemblyMetadata metadata, RootWriter parent) : Ba
     protected override void WriteInternal()
     {
         //assembly
-        Builder.Append(MarkdownHelper.Header(6)).Append(' ').AppendLine(MarkdownHelper.HyperLink("主页", MarkdownPath.GetUrlRelativePath(GetRootMarkdownPath())));
-        Builder.Append(MarkdownHelper.Header(1)).Append(' ').AppendLine($"{Metadata.AssemblyInfo.Name} 程序集");
-        Builder.Append(MarkdownHelper.Header(4)).Append(' ').AppendLine("命名空间");
+        Builder.Append(MarkdownHelper.Header(6)).Append(' ').AppendLine(MarkdownHelper.HyperLink("主页", MarkdownPath.GetUrlRelativePath(GetRootMarkdownPath()))).AppendLine();
+        Builder.Append(MarkdownHelper.Header(1)).Append(' ').AppendLine($"{Metadata.AssemblyInfo.Name} 程序集").AppendLine();
+        Builder.Append(MarkdownHelper.Header(4)).Append(' ').AppendLine("命名空间").AppendLine();
 
         //namespaces
         Metadata.Namespaces.ForEach(x =>
@@ -21,7 +21,7 @@ internal class AssemblyWriter(AssemblyMetadata metadata, RootWriter parent) : Ba
             var namespaceWriter = new NamespaceWriter(x, this);
             namespaceWriter.Write();
 
-            Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').AppendLine(MarkdownHelper.HyperLink(x.Name, MarkdownPath.GetUrlRelativePath(namespaceWriter.MarkdownPath)));
+            Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').AppendLine(MarkdownHelper.HyperLink(x.Name, MarkdownPath.GetUrlRelativePath(namespaceWriter.MarkdownPath))).AppendLine();
         });
     }
 }

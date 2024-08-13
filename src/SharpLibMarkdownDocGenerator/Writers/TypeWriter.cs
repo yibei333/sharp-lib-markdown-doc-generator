@@ -24,11 +24,11 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
     void WriteType()
     {
         //名称
-        Builder.Append(MarkdownHelper.Header(6)).Append(' ').AppendLine(MarkdownHelper.HyperLink("主页", MarkdownPath.GetUrlRelativePath(GetRootMarkdownPath())));
-        Builder.Append(MarkdownHelper.Header(2)).Append(' ').Append(Metadata.TypeDefinitionName.MarkdownEscaping('<', '>')).Append(' ').AppendLine(Metadata.CategoryName);
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("定义");
-        Builder.Append(MarkdownHelper.Bold("程序集")).Append(" : ").AppendLine(MarkdownHelper.HyperLink($"{Metadata.Assembly?.AssemblyInfo.Name}.dll", MarkdownPath.GetUrlRelativePath(GetWriter<AssemblyWriter>()!.MarkdownPath)));
-        Builder.Append(MarkdownHelper.Bold("命名空间")).Append(" : ").AppendLine(MarkdownHelper.HyperLink(Parent.Metadata.Name, MarkdownPath.GetUrlRelativePath(GetNamespaceMarkdownPath(Parent.Metadata.Name))));
+        Builder.Append(MarkdownHelper.Header(6)).Append(' ').AppendLine(MarkdownHelper.HyperLink("主页", MarkdownPath.GetUrlRelativePath(GetRootMarkdownPath()))).AppendLine();
+        Builder.Append(MarkdownHelper.Header(2)).Append(' ').Append(Metadata.TypeDefinitionName.MarkdownEscaping('<', '>')).Append(' ').AppendLine(Metadata.CategoryName).AppendLine();
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("定义").AppendLine();
+        Builder.Append(MarkdownHelper.Bold("程序集")).Append(" : ").AppendLine(MarkdownHelper.HyperLink($"{Metadata.Assembly?.AssemblyInfo.Name}.dll", MarkdownPath.GetUrlRelativePath(GetWriter<AssemblyWriter>()!.MarkdownPath))).AppendLine();
+        Builder.Append(MarkdownHelper.Bold("命名空间")).Append(" : ").AppendLine(MarkdownHelper.HyperLink(Parent.Metadata.Name, MarkdownPath.GetUrlRelativePath(GetNamespaceMarkdownPath(Parent.Metadata.Name)))).AppendLine();
 
         //继承
         if (Metadata.BaseTypeChain.Count > 0)
@@ -41,7 +41,7 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
                 Builder.Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
                 baseIndex++;
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
 
         //实现
@@ -55,7 +55,7 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
                 Builder.Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
                 baseIndex++;
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
 
         //派生
@@ -69,28 +69,28 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
                 Builder.Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
                 baseIndex++;
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
 
         //签名
-        Builder.AppendLine(MarkdownHelper.Code(Metadata.Signature));
+        Builder.AppendLine(MarkdownHelper.Code(Metadata.Signature)).AppendLine();
 
         //注释
         if (Metadata.DocSummary.NotNullOrWhiteSpace())
         {
-            Builder.AppendLine(MarkdownHelper.Bold("注释"));
+            Builder.AppendLine(MarkdownHelper.Bold("注释")).AppendLine();
             Builder.AppendLine(MarkdownHelper.Italic(Metadata.DocSummary));
             Metadata.DocSummaryParas.ForEach(x =>
             {
-                Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').AppendLine(x);
+                Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').AppendLine(x).AppendLine();
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
 
         //泛型参数
         if (Metadata.GenericParameters.NotNullOrEmpty())
         {
-            Builder.AppendLine(MarkdownHelper.Bold("泛型参数"));
+            Builder.AppendLine(MarkdownHelper.Bold("泛型参数")).AppendLine();
             var columns = new string[] { "名称", "注释", "约束" };
             var data = new List<string[]>();
 
@@ -105,8 +105,8 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
                 };
                 data.Add(array);
             });
-            Builder.AppendLine(MarkdownHelper.Table(columns, data));
-            Builder.AppendLine();
+            Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
+            Builder.AppendLine().AppendLine();
         }
     }
 
@@ -114,7 +114,7 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
     {
         if (Metadata.Constructors.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("构造函数");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("构造函数").AppendLine();
 
         var columns = new string[] { "方法", "注释", "参数" };
         var data = new List<string[]>();
@@ -131,14 +131,14 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
             };
             data.Add(array);
         });
-        Builder.AppendLine(MarkdownHelper.Table(columns, data));
+        Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
     }
 
     void WriteEnumFields()
     {
         if (Metadata.EnumFields.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("字段");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("字段").AppendLine();
 
         var columns = new string[] { "名称", "值", "说明" };
         var data = new List<string[]>();
@@ -155,14 +155,14 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
             };
             data.Add(array);
         });
-        Builder.AppendLine(MarkdownHelper.Table(columns, data));
+        Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
     }
 
     void WriteFields()
     {
         if (Metadata.Fields.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("字段");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("字段").AppendLine();
 
         var columns = new string[] { "名称", "类型", "是否静态", "注释" };
         var data = new List<string[]>();
@@ -187,14 +187,14 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
             };
             data.Add(array);
         });
-        Builder.AppendLine(MarkdownHelper.Table(columns, data));
+        Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
     }
 
     void WriteProperties()
     {
         if (Metadata.Properties.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("属性");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("属性").AppendLine();
 
         var columns = new string[] { "名称", "类型", "是否静态", "注释" };
         var data = new List<string[]>();
@@ -219,14 +219,14 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
             };
             data.Add(array);
         });
-        Builder.AppendLine(MarkdownHelper.Table(columns, data));
+        Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
     }
 
     void WriteMethods()
     {
         if (Metadata.Category == TypeCategory.Enum || Metadata.Methods.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("方法");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("方法").AppendLine();
 
         var columns = new string[] { "方法", "返回类型", "Accessor", "是否静态", "参数" };
         var data = new List<string[]>();
@@ -252,7 +252,7 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
             };
             data.Add(array);
         });
-        Builder.AppendLine(MarkdownHelper.Table(columns, data));
+        Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
     }
 
     void WriteDelegates()
@@ -260,19 +260,19 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
         var innerTypes = Metadata.Type.GetNestedTypes().Where(x => x.BaseType == typeof(MulticastDelegate) && (x.IsPublic || x.IsNestedFamily || x.IsNestedPublic)).ToList();
         if (innerTypes.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("委托");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("委托").AppendLine();
         innerTypes.ForEach(x =>
         {
             Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
         });
-        Builder.AppendLine();
+        Builder.AppendLine().AppendLine();
     }
 
     void WriteEvents()
     {
         if (Metadata.Events.Count <= 0) return;
 
-        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("事件");
+        Builder.Append(MarkdownHelper.Header(3)).Append(' ').AppendLine("事件").AppendLine();
 
         var columns = new string[] { "名称", "事件处理类型", "Accessor", "注释" };
         var data = new List<string[]>();
@@ -297,6 +297,6 @@ internal class TypeWriter(TypeMetadata metadata, NamespaceWriter namespaceWriter
             };
             data.Add(array);
         });
-        Builder.AppendLine(MarkdownHelper.Table(columns, data));
+        Builder.AppendLine(MarkdownHelper.Table(columns, data)).AppendLine();
     }
 }

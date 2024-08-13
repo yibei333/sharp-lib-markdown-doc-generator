@@ -12,12 +12,12 @@ internal class DelegateWriter(DelegateMetadata metadata, NamespaceWriter namespa
     protected override void WriteInternal()
     {
         //名称
-        Builder.Append(MarkdownHelper.Header(6)).Append(' ').AppendLine(MarkdownHelper.HyperLink("主页", MarkdownPath.GetUrlRelativePath(GetRootMarkdownPath())));
-        Builder.Append(MarkdownHelper.Header(1)).Append(' ').Append(Metadata.TypeDefinitionName.MarkdownEscaping('<', '>')).Append(' ').AppendLine("委托");
-        Builder.Append(MarkdownHelper.Header(2)).Append(' ').AppendLine("定义");
-        Builder.Append(MarkdownHelper.Bold("程序集")).Append(" : ").AppendLine(MarkdownHelper.HyperLink($"{Metadata.Assembly?.AssemblyInfo.Name}.dll", MarkdownPath.GetUrlRelativePath(GetWriter<AssemblyWriter>()!.MarkdownPath)));
-        Builder.Append(MarkdownHelper.Bold("命名空间")).Append(" : ").AppendLine(MarkdownHelper.HyperLink(Parent.Metadata.Name, MarkdownPath.GetUrlRelativePath(GetNamespaceMarkdownPath(Parent.Metadata.Name))));
-        if (Metadata.Type.DeclaringType is not null) Builder.Append(MarkdownHelper.Bold("所属类型")).Append(" : ").AppendLine(MarkdownHelper.TypeReference(this, MarkdownPath, Metadata.Type.DeclaringType));
+        Builder.Append(MarkdownHelper.Header(6)).Append(' ').AppendLine(MarkdownHelper.HyperLink("主页", MarkdownPath.GetUrlRelativePath(GetRootMarkdownPath()))).AppendLine();
+        Builder.Append(MarkdownHelper.Header(1)).Append(' ').Append(Metadata.TypeDefinitionName.MarkdownEscaping('<', '>')).Append(' ').AppendLine("委托").AppendLine();
+        Builder.Append(MarkdownHelper.Header(2)).Append(' ').AppendLine("定义").AppendLine();
+        Builder.Append(MarkdownHelper.Bold("程序集")).Append(" : ").AppendLine(MarkdownHelper.HyperLink($"{Metadata.Assembly?.AssemblyInfo.Name}.dll", MarkdownPath.GetUrlRelativePath(GetWriter<AssemblyWriter>()!.MarkdownPath))).AppendLine();
+        Builder.Append(MarkdownHelper.Bold("命名空间")).Append(" : ").AppendLine(MarkdownHelper.HyperLink(Parent.Metadata.Name, MarkdownPath.GetUrlRelativePath(GetNamespaceMarkdownPath(Parent.Metadata.Name)))).AppendLine();
+        if (Metadata.Type.DeclaringType is not null) Builder.Append(MarkdownHelper.Bold("所属类型")).Append(" : ").AppendLine(MarkdownHelper.TypeReference(this, MarkdownPath, Metadata.Type.DeclaringType)).AppendLine();
 
         //继承
         if (Metadata.BaseTypeChain.Count > 0)
@@ -30,7 +30,7 @@ internal class DelegateWriter(DelegateMetadata metadata, NamespaceWriter namespa
                 Builder.Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
                 baseIndex++;
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
 
         //实现
@@ -44,7 +44,7 @@ internal class DelegateWriter(DelegateMetadata metadata, NamespaceWriter namespa
                 Builder.Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
                 baseIndex++;
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
 
         //派生
@@ -58,23 +58,23 @@ internal class DelegateWriter(DelegateMetadata metadata, NamespaceWriter namespa
                 Builder.Append(MarkdownHelper.TypeReference(this, MarkdownPath, x));
                 baseIndex++;
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
-        if (Metadata.Type.DeclaringType is not null) Builder.Append(MarkdownHelper.Bold("所属类型")).Append(" : ").AppendLine(MarkdownHelper.TypeReference(this, MarkdownPath, Metadata.Type.DeclaringType));
+        if (Metadata.Type.DeclaringType is not null) Builder.Append(MarkdownHelper.Bold("所属类型")).Append(" : ").AppendLine(MarkdownHelper.TypeReference(this, MarkdownPath, Metadata.Type.DeclaringType)).AppendLine();
 
         //签名
-        Builder.AppendLine(MarkdownHelper.Code(Metadata.Signature));
+        Builder.AppendLine(MarkdownHelper.Code(Metadata.Signature)).AppendLine();
 
         //注释
         if (Metadata.DocSummary.NotNullOrWhiteSpace())
         {
-            Builder.AppendLine(MarkdownHelper.Bold("注释"));
-            Builder.AppendLine(MarkdownHelper.Italic(Metadata.DocSummary));
+            Builder.AppendLine(MarkdownHelper.Bold("注释")).AppendLine();
+            Builder.AppendLine(MarkdownHelper.Italic(Metadata.DocSummary)).AppendLine();
             Metadata.DocSummaryParas.ForEach(x =>
             {
-                Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').AppendLine(x);
+                Builder.Append(MarkdownHelper.UnOrderedList(1)).Append(' ').AppendLine(x).AppendLine();
             });
-            Builder.AppendLine();
+            Builder.AppendLine().AppendLine();
         }
     }
 }
