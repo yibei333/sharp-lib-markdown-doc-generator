@@ -15,7 +15,6 @@ internal static class ReflectionExtension
     /// </summary>
     /// <param name="type">类型</param>
     /// <param name="isFullName">是否全名</param>
-    /// <param name="isNested">是否输出嵌套</param>
     /// <returns>名称</returns>
     public static string GetTypeDefinitionName(this Type type, bool isFullName = false)
     {

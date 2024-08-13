@@ -72,9 +72,9 @@ internal class MetadataHelper
     {
         AssemblyPaths.ForEach(x =>
         {
-            var context = AssemblyLoadContext.Default;
-            context.Resolving += Context_Resolving;
-            var assembly = context.LoadFromAssemblyPath(x);
+            var assemblyContext = new AssemblyLoadContext(x.GetFileName(false));
+            assemblyContext.Resolving += Context_Resolving;
+            var assembly = assemblyContext.LoadFromAssemblyPath(x);
             Assemblies.Add(new AssemblyInfo(x, assembly));
         });
     }
@@ -84,10 +84,10 @@ internal class MetadataHelper
         if (arg2.Name.IsNullOrWhiteSpace()) return null!;
         var path = DependencyPaths[arg2.Name];
         path.ThrowIfFileNotExist();
-
-        var context = AssemblyLoadContext.Default;
-        context.Resolving += Context_Resolving;
-        return context.LoadFromAssemblyPath(path);
+        var assemblyContext = new AssemblyLoadContext(arg2.Name);
+        assemblyContext.Resolving += Context_Resolving;
+        var assembly = assemblyContext.LoadFromAssemblyPath(path);
+        return assembly;
     }
 }
 
