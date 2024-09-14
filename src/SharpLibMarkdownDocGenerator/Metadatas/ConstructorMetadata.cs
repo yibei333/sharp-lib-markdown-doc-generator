@@ -46,7 +46,7 @@ internal class ConstructorMetadata : BaseMetadata<TypeMetadata>
         builder.Append(DeclareType.Name);
         builder.Append(".#ctor");
         var definitionName = ConstructorInfo.GetConstructorDefinitionName(false, true).Replace(", ", ",");
-        definitionName = definitionName.Substring(definitionName.IndexOf('('));
+        definitionName = definitionName[definitionName.IndexOf('(')..];
         definitionName = definitionName.Replace('<', '{').Replace('>', '}');
         if (DeclareType.IsGenericType)
         {

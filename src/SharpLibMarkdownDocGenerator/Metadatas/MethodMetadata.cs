@@ -90,7 +90,7 @@ internal class MethodMetadata : BaseMetadata<TypeMetadata>
         }
         builder.Append(methodName);
         var definitionName = MethodInfo.GetMethodDefinitionName(false, true).Replace(", ", ",").Replace("(this ", "(");
-        definitionName = definitionName.Substring(definitionName.IndexOf('('));
+        definitionName = definitionName[definitionName.IndexOf('(')..];
         definitionName = definitionName.Replace('<', '{').Replace('>', '}');
         if (MethodInfo.IsGenericMethod)
         {
